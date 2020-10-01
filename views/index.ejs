@@ -1,0 +1,43 @@
+<%- include("partials/header.ejs")%>
+
+//Posts as cards
+<div class="ui main text container">
+	<% if(passedPosts.length===0) { %>
+		<div class="ui huge header">Your clipboard is Empty! Add something first</div>
+		<a href="/blogs/new"><i class="plus square icon" href="/new"></i></a>
+	<% } else { %>
+	<div class="ui huge header">Your Clips</div>
+	<div class="ui top attached segment">
+		<div class="ui divided items">
+			<% passedPosts.forEach(function(eachPost){ %>
+			<div class="item">
+			<% if (eachPost.image!="") { %>
+			<div class="image">
+				<img src="<%=eachPost.image%>">
+			</div>
+			<% } else { %>
+			<i style="padding-left: 1.5em; padding-right: 1.8em; padding-top: 1.5em; padding-bottom: 1.5em" class="sticky note icon"></i>
+			<% } %>
+				
+			<div class="content">
+				<a class="header" href="/blogs/<%=eachPost._id%>"><%=eachPost.title%></a>
+					<div class="meta">
+						<p><%=eachPost.created.toDateString()%></p>
+					</div>
+					<% if(eachPost.body!=null) {%>
+					<div class="description">
+						<p><%-eachPost.body.substring(0,100)%>....</p>
+					</div>
+					<% } %>
+					<div class="extra">
+						<a class="ui floated basic violet button" href="/blogs/<%=eachPost._id%>">Open</a>
+					</div>
+				</div>	
+			</div>
+			<% });}%>
+		</div>
+	</div>
+</div>
+
+
+<%- include("partials/footer.ejs")%>
